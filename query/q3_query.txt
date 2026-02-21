@@ -1,0 +1,12 @@
+1. SELECT MAX(OrderAmount) AS max_order, MIN(OrderAmount) AS min_order FROM Orders;
+2. SELECT COUNT(OrderID) AS pending FROM Orders WHERE OrderStatus = 'Pending';
+3. SELECT COUNT(OrderID) AS order_count, OrderDate FROM Orders GROUP BY OrderDate;
+4. SELECT City,  AVG(Age) AS avg_age FROM Customers GROUP BY City HAVING AVG(Age) > 25;
+5. SELECT OrderStatus, COUNT(OrderID) AS total_count, SUM(OrderAmount) as total_amount  FROM Orders GROUP BY OrderStatus HAVING COUNT(OrderID) > 1 ORDER BY total_amount;
+6. SELECT OrderStatus, COUNT(OrderID), SUM(OrderAmount) FROM Orders WHERE OrderStatus != 'Cancelled' GROUP BY OrderStatus HAVING SUM(OrderAmount) > 2000;
+7. SELECT OrderStatus, COUNT(OrderID), SUM(OrderAmount) FROM Orders GROUP BY OrderStatus HAVING COUNT(OrderID) > 1 AND SUM(OrderAmount) > 4000;
+8. SELECT City, COUNT(CustomerID), AVG(Age) FROM Customers GROUP BY City HAVING COUNT(CustomerID) > 1 AND AVG(Age) > 25;
+9. SELECT OrderDate, SUM(OrderAmount) FROM Orders GROUP BY OrderDate HAVING SUM(OrderAmount) > 3000 AND MIN(OrderAmount) > 2000;
+10. SELECT OrderStatus, MAX(OrderAmount), MIN(OrderAmount) FROM Orders GROUP BY OrderStatus HAVING MAX(OrderAmount) > 3000 AND MIN(OrderAmount) > 1500;
+11. SELECT City, COUNT(CustomerID), MIN(Age) As min_age FROM Customers GROUP BY City HAVING COUNT(CustomerID) > 1 AND MIN(Age) > 20;
+12. SELECT OrderStatus, COUNT(OrderStatus), SUM(OrderAmount) FROM Orders GROUP BY OrderStatus HAVING COUNT(OrderStatus) < 3 AND SUM(OrderAmount) BETWEEN 3000 AND 6000;
