@@ -1,0 +1,62 @@
+CREATE TABLE Customers (
+    CustomerID NUMBER(10) PRIMARY KEY,
+    CustomerName VARCHAR2(20) NOT NULL,
+    City VARCHAR2(10) DEFAULT 'Delhi',
+    Email VARCHAR2(20) UNIQUE,
+    Age NUMBER(5) CHECK(Age > 18)
+)
+
+INSERT INTO Customers VALUES(101, 'Rahul Kumar', 'Delhi', 'rahul@gmail.com', 22)
+INSERT INTO Customers VALUES(102, 'Neha Sharma', 'Mumbai', 'neha@gmail.com', 25)
+INSERT INTO Customers VALUES(103, 'Amit Verma', 'Pune', 'amit@gmail.com', 30)
+INSERT INTO Customers VALUES(104, 'Priya Singh', 'Delhi', 'priya@gmail.com', 28)
+INSERT INTO Customers VALUES(105, 'Rohan Mehta', 'Jaipur', 'rohan@gmail.com', 35)
+
+CREATE TABLE Orders (
+    OrderID NUMBER(10) PRIMARY KEY,
+    CustomerID NUMBER(10),
+    OrderAmount NUMBER(10, 2) CHECK(OrderAmount > 0),
+    OrderDate DATE,
+    OrderStatus VARCHAR2(10) DEFAULT 'Pending',
+    FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID)
+)
+
+INSERT INTO Orders VALUES(501, 101, 2500.00, '01-FEB-2026', 'Pending')
+INSERT INTO Orders VALUES(502, 102, 4500.00, '02-FEB-2026', 'Delivered')
+INSERT INTO Orders VALUES(503, 103, 3200.00, '03-FEB-2026', 'Pending')
+INSERT INTO Orders VALUES(504, 104, 5000.00, '04-FEB-2026', 'Shipped')
+INSERT INTO Orders VALUES(505, 105, 1800.00, '05-FEB-2026', 'Cancelled')
+
+
+
+
+1. SELECT OrderID, CustomerID, OrderAmount FROM Orders WHERE OrderAmount > 3000 ORDER BY OrderAmount DESC
+
+2. SELECT OrderID, CustomerID, OrderAmount, OrderStatus FROM Orders WHERE OrderStatus IN ('Pending', 'Shipped') AND OrderAmount > 2000;
+
+3. SELECT CustomerID, City FROM Customers WHERE City IN('Delhi', 'Mumbai', 'Pune');
+
+4. SELECT OrderID, CustomerID, OrderStatus, OrderAmount FROM Orders ORDER BY OrderStatus, OrderAmount DESC;
+
+5. SELECT OrderID, CustomerID, OrderDate FROM Orders WHERE OrderDate>='02-FEB-2026' ORDER BY OrderDate
+
+6. SELECT CustomerID, CustomerName, City FROM Customers WHERE CustomerName LIKE '%Singh%';
+
+7. SELECT OrderID, CustomerID, OrderAmount, OrderStatus FROM Orders
+WHERE OrderStatus != 'Cancelled' AND OrderAmount BETWEEN 2000 AND 5000;
+
+8. SELECT * FROM Orders WHERE OrderAmount > 2000 AND OrderStatus != 'Cancelled' AND OrderDate > '01-FEB-2026';
+
+9. SELECT CustomerID, CustomerName, City, Age FROM Customers WHERE City IN('Delhi', 'Mumbai') AND Age >= 22 AND CustomerName LIKE 'R%';
+
+10. SELECT * FROM Orders WHERE OrderAmount BETWEEN 1500 AND 5000 AND OrderStatus != 'Pending' AND OrderDate > '02-FEB-2026';
+
+11. SELECT * FROM Orders WHERE OrderStatus IN ('Pending', 'Shipped') AND OrderAmount > 1800 ORDER BY OrderDate DESC
+
+12. SELECT CustomerID, CustomerName, City, Age FROM Customers WHERE City='Delhi' AND Age BETWEEN 20 AND 35 AND CustomerName LIKE '%a'
+
+13. SELECT * FROM Orders WHERE OrderAmount > 2000 AND OrderStatus != 'Cancelled' AND OrderDate < '05-FEB-2026';
+
+14. SELECT * FROM Orders WHERE OrderStatus != 'Cancelled' AND OrderDate < '05-FEB-2026' ORDER BY OrderAmount DESC FETCH FIRST 2 ROWS ONLY;
+
+15. SELECT OrderID, CustomerID, OrderStatus, OrderAmount FROM Orders WHERE OrderAmount BETWEEN 1800 AND 4500 AND OrderStatus IN ('Pending', 'Delivered') ORDER BY OrderStatus, OrderAmount
